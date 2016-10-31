@@ -1,0 +1,20 @@
+{
+  "name": "express-auth-hw",
+  "version": "1.0.0",
+  "description": "SoftUni Homework: Express - Node - Mongo server app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nangelov1990/express-auth-hw.git"
+  },
+  "keywords": [],
+  "author": "Nikola Angelov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nangelov1990/express-auth-hw/issues"
+  },
+  "homepage": "https://github.com/nangelov1990/express-auth-hw#readme"
+}
