@@ -7,7 +7,7 @@ module.exports = {
   development: {
     rootPath: rootPath,
     db: 'mongodb://localhost:27017/BLOG-express-hw',
-    port: 2993
-    // TODO: session secret
+    port: 2993,
+    sessionSecret: '@def-session-secret#'
   }
 }
