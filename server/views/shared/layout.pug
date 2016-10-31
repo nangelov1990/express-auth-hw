@@ -1,0 +1,13 @@
+doctype
+html
+    head
+        title NANGELOV Blog
+        link(href="/css/site.css" rel="stylesheet")
+    body
+        .container
+            ul.menu
+                li
+                    a(href="/") Home
+            if (globalErr)
+                h3= globalErr
+            block main-content

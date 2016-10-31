@@ -6,7 +6,7 @@ let rootPath = path.normalize(path.join(__dirname, '/../../'))
 module.exports = {
   development: {
     rootPath: rootPath,
-    db: 'mondodb://localhost:27017/BLOG-express-hw',
+    db: 'mongodb://localhost:27017/BLOG-express-hw',
     port: 2993
     // TODO: session secret
   }
