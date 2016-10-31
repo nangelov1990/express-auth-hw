@@ -4,7 +4,7 @@ h1 {
 .container {
     padding-left: 25%;
 }
-.menu {
+.menu, .articles-list {
     list-style-type: none;
     padding-left: 0;
 }

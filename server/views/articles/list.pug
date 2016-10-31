@@ -1,0 +1,7 @@
+extends ../shared/layout
+block main-content
+    h1 All Articles
+    ul.articles-list
+        each article in articles
+            li
+                a(href="/")= article.title

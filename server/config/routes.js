@@ -11,9 +11,14 @@ module.exports = (app) => {
     let method = req.params.method
     let id = req.params.id
 
-    id
-      ? controllers[controller][method](req, res)(id)
-      : controllers[controller][method](req, res)
+    try {
+      id
+        ? controllers[controller][method](req, res)(id)
+        : controllers[controller][method](req, res)
+    } catch (err) {
+      if (err) console.error(err)
+      controllers.notFound(req, res)
+    }
   })
 
   app.all('*', controllers.notFound)

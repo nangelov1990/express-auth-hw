@@ -40,7 +40,13 @@ module.exports = {
     User
       .findOne({username: inputUser.username })
       .then(user => {
-        let correctPassword = user.authenticate(inputUser.password)
+        let correctPassword = false
+        if (inputUser.password) {
+          correctPassword = user.authenticate(inputUser.password)
+        } else {
+          res.redirect('back')
+          return
+        }
         if (!correctPassword) {
           res.render('users/login', { globalErr: 'Invalid username or password!'})
         } else {
@@ -50,7 +56,7 @@ module.exports = {
               res.render('/users/login', { globalErr: 'Ooops 500' })
               return
             }
-            
+
             res.redirect('/')
           })
         }
