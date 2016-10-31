@@ -3,8 +3,10 @@ block main-content
     h1= article.title
     br
     span= "Author: " + article.author
-    if (article.isAuthor)
+    if (article.canEdit)
         span.delimiter
         a(href="/articles/edit/" + article._id) Edit
+        span.delimiter
+        a(href="/articles/delete/" + article._id) Delete
     h4=article.content
 

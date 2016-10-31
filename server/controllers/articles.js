@@ -27,7 +27,9 @@ module.exports = {
     Article
       .findOne({ _id: id })
       .then(article => {
-        article.isAuthor = req.user.username === article.author
+        article.canEdit =
+          req.user.username === article.author ||
+            req.user.roles.indexOf('Admin') > -1
 
         res.render('articles/details', { article })
       })
@@ -36,7 +38,8 @@ module.exports = {
     Article
       .findOne({ _id: id })
       .then(article => {
-        if (req.user.username === article.author) {
+        if (req.user.username === article.author ||
+            req.user.roles.indexOf('Admin') > -1) {
           res.render('articles/edit', article)
         } else {
           res.redirect('/articles/details/' + article._id)
@@ -44,6 +47,7 @@ module.exports = {
       })
   },
   put: (req, res, id) => {
+    // TODO: check if user can update
     Article
       .findOneAndUpdate(
         { _id: id },
@@ -52,6 +56,17 @@ module.exports = {
         (err, article) => {
           if (err) console.error(err)
           res.redirect('/articles/details/' + article._id)
+        }
+      )
+  },
+  delete: (req, res, id) => {
+    // TODO: check if user can delete
+    Article
+      .findOneAndRemove(
+        { _id: id },
+        err => {
+          if (err) console.error(err)
+          res.redirect('/articles/list')
         }
       )
   }

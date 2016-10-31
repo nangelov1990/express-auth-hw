@@ -14,12 +14,6 @@ module.exports = (app) => {
     controllers['users'][method](req, res, id)
   })
 
-  app.all('/admin/:method/:id?', auth.isInRole('Admin'), (req, res) => {
-    let method = req.params.method
-    let id = req.params.id
-    controllers['users'][method](req, res, id)
-  })
-
   app.all('/:controller/:method/:id?', auth.isAuthenticated, (req, res) => {
     let controller = req.params.controller
     let method = req.params.method
