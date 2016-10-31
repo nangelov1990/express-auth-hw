@@ -11,4 +11,3 @@ require('./server/config/routes')(app)
 // TODO: require passport
 
 app.listen(2993)
-console.log('Express running')

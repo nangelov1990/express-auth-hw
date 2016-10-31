@@ -10,4 +10,6 @@ module.exports = (app, config) => {
   // TODO: session
   // TODO: passport
   app.use(express.static(config.rootPath + 'public'))
+
+  console.log('Express running')
 }
