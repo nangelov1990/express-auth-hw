@@ -6,19 +6,25 @@ module.exports = (app) => {
   app.get('/', controllers.home.index)
   app.get('/about', controllers.home.about)
 
-  app.all('/:controller/:method/:id?', (req, res) => {
+  app.get('/articles/list', controllers.articles.list)
+
+  app.all('/users/:method/:id?', (req, res) => {
+    let method = req.params.method
+    let id = req.params.id
+    controllers['users'][method](req, res, id)
+  })
+
+  app.all('/admin/:method/:id?', auth.isInRole('Admin'), (req, res) => {
+    let method = req.params.method
+    let id = req.params.id
+    controllers['users'][method](req, res, id)
+  })
+
+  app.all('/:controller/:method/:id?', auth.isAuthenticated, (req, res) => {
     let controller = req.params.controller
     let method = req.params.method
     let id = req.params.id
-
-    try {
-      id
-        ? controllers[controller][method](req, res)(id)
-        : controllers[controller][method](req, res)
-    } catch (err) {
-      if (err) console.error(err)
-      controllers.notFound(req, res)
-    }
+    controllers[controller][method](req, res, id)
   })
 
   app.all('*', controllers.notFound)

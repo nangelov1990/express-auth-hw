@@ -1,0 +1,13 @@
+extends ../shared/layout
+block main-content
+    h1 Create new article
+    form(method="post" action="/articles/create")
+        label(for="title") Title
+        br
+        input#title(type="text" name="title" value=title)
+        br
+        label(for="content") Content
+        br
+        textarea#content(name="content")= content
+        br
+        input(type="submit" value="Create")

@@ -1,0 +1,10 @@
+extends ../shared/layout
+block main-content
+    h1= article.title
+    br
+    span= "Author: " + article.author
+    if (article.isAuthor)
+        span.delimiter
+        a(href="/articles/edit/" + article._id) Edit
+    h4=article.content
+

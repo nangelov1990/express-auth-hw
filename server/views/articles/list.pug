@@ -4,4 +4,4 @@ block main-content
     ul.articles-list
         each article in articles
             li
-                a(href="/")= article.title
+                a(href="/articles/details/" + article._id)= article.title
