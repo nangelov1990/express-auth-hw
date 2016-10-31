@@ -32,6 +32,30 @@ module.exports = {
         })
     }
   },
+  login: (req, res) => {
+    res.render('users/login')
+  },
+  authenticate: (req, res) => {
+    let inputUser = req.body
+    User
+      .findOne({username: inputUser.username })
+      .then(user => {
+        let correctPassword = user.authenticate(inputUser.password)
+        if (!correctPassword) {
+          res.render('users/login', { globalErr: 'Invalid username or password!'})
+        } else {
+          req.logIn(user, (err, user) => {
+            if (err) {
+              res.status = 500
+              res.render('/users/login', { globalErr: 'Ooops 500' })
+              return
+            }
+            
+            res.redirect('/')
+          })
+        }
+      })
+  },
   logout: (req, res) => {
     req.logout()
     res.redirect('/')
