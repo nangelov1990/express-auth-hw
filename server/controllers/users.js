@@ -19,10 +19,21 @@ module.exports = {
 
       User
         .create(user)
-        .then(
-          // TODO: login
+        .then(user => {
+          req
+            .logIn(user, (err, user) => {
+              if (err) {
+                user.globalErr = err
+                res.render('users/register', user)
+              }
+            })
+
           res.redirect('/')
-        )
+        })
     }
+  },
+  logout: (req, res) => {
+    req.logout()
+    res.redirect('/')
   }
 }
