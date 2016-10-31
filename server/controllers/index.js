@@ -1,5 +1,6 @@
 'use strict'
 const home = require('./home')
+const users = require('./users')
 
 let notFound = (req, res) => {
   res.status = 404
@@ -8,5 +9,6 @@ let notFound = (req, res) => {
 
 module.exports = {
   notFound,
-  home
+  home,
+  users
 }

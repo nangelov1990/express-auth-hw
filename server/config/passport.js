@@ -1,6 +1,6 @@
 'use strict'
 const passport = require('passport')
-const LocalPassport = require('local-passport')
+const LocalPassport = require('passport-local')
 const User = require('mongoose').model('User')
 
 module.exports = () => {

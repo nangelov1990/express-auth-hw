@@ -1,6 +1,6 @@
 'use strict'
 const mongoose = require('mongoose')
-const encryption = require('encryption')
+const encryption = require('../utilities/encryption')
 const requiredValidationMessage = '{PATH} is required'
 
 let userSchema = mongoose.Schema({
@@ -28,7 +28,7 @@ module.exports.seedAdminUser = () => {
     .then(users => {
       if (users.length > 0) return
 
-      let salt = encryption.generateHashedPass()
+      let salt = encryption.generateSalt()
       let hashedPass = encryption.generateHashedPass(salt, 'admin')
       User
         .create({

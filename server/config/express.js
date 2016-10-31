@@ -2,7 +2,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const session = require('session')
+const session = require('express-session')
 const passport = require('passport')
 
 module.exports = (app, config) => {
