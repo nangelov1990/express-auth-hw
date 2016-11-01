@@ -4,7 +4,8 @@ module.exports = {
     if (req.isAuthenticated()) {
       next()
     } else {
-      res.redirect('/users/login')
+      let returnUrl = '?' + req.originalUrl
+      res.redirect('/users/login' + returnUrl)
     }
   },
   isInRole: (role) => {

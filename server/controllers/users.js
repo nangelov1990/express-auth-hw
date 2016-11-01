@@ -37,6 +37,10 @@ module.exports = {
   },
   authenticate: (req, res) => {
     let inputUser = req.body
+    let returnUrl =
+      req.header('referer').toString().split('?')[1] ||
+      '/'
+
     User
       .findOne({username: inputUser.username })
       .then(user => {
@@ -52,12 +56,12 @@ module.exports = {
         } else {
           req.logIn(user, (err, user) => {
             if (err) {
+              console.error(err)
               res.status = 500
-              res.render('/users/login', { globalErr: 'Ooops 500' })
+              res.render('users/login', { globalErr: 'Ooops 500' })
               return
             }
-
-            res.redirect('/')
+            res.redirect(returnUrl)
           })
         }
       })
