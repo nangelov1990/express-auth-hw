@@ -8,17 +8,27 @@ module.exports = (app) => {
 
   app.get('/articles/list', controllers.articles.list)
 
-  app.all('/users/:method/:id?', (req, res) => {
+  app.all('/users/:method/:id?', (req, res, next) => {
     let method = req.params.method
     let id = req.params.id
-    controllers['users'][method](req, res, id)
+    try {
+      controllers['users'][method](req, res, id)
+    } catch (err) {
+      console.error(err)
+      next()
+    }
   })
 
-  app.all('/:controller/:method/:id?', auth.isAuthenticated, (req, res) => {
+  app.all('/:controller/:method/:id?', auth.isAuthenticated, (req, res, next) => {
     let controller = req.params.controller
     let method = req.params.method
     let id = req.params.id
-    controllers[controller][method](req, res, id)
+    try {
+      controllers[controller][method](req, res, id)
+    } catch (err) {
+      console.error(err)
+      next()
+    }
   })
 
   app.all('*', controllers.notFound)

@@ -12,8 +12,7 @@ module.exports = {
     Article
       .create(article)
       .then(article => {
-        res.render('home/index', { globalErr: 'Article added!' })
-        // TODO: go to article details
+        res.redirect('/articles/details/' + article._id)
       })
   },
   list: (req, res) => {
@@ -47,27 +46,42 @@ module.exports = {
       })
   },
   put: (req, res, id) => {
-    // TODO: check if user can update
+    let newTitle = req.body.title
+    let newContent = req.body.content
+
     Article
-      .findOneAndUpdate(
-        { _id: id },
-        { $set: { title: req.body.title, content: req.body.content } },
-        { new: true },
-        (err, article) => {
-          if (err) console.error(err)
+      .findOne({ _id: id })
+      .then(article => {
+        if (req.user.username === article.author ||
+          req.user.roles.indexOf('Admin') > -1) {
+          article
+            .update(
+              { $set: { title: newTitle, content: newContent } },
+              { new: true },
+              (err, article) => {
+                if (err) console.error(err)
+                res.redirect('/articles/details/' + article._id)
+              }
+            )
+        } else {
           res.redirect('/articles/details/' + article._id)
         }
-      )
+      })
   },
   delete: (req, res, id) => {
-    // TODO: check if user can delete
     Article
-      .findOneAndRemove(
-        { _id: id },
-        err => {
-          if (err) console.error(err)
-          res.redirect('/articles/list')
+      .findOne({ _id: id })
+      .then(article => {
+        if (req.user.username === article.author ||
+          req.user.roles.indexOf('Admin') > -1) {
+          article
+            .remove((err, article) => {
+              if (err) console.error(err)
+              res.redirect('/articles/details/' + article._id)
+            })
+        } else {
+          res.redirect('/articles/details/' + article._id)
         }
-      )
+      })
   }
 }

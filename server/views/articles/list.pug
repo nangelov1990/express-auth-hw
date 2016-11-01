@@ -5,3 +5,5 @@ block main-content
         each article in articles
             li
                 a(href="/articles/details/" + article._id)= article.title
+        else
+            span= "No articles yet"
